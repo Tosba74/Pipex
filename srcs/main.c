@@ -5,49 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/06 18:37:34 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/07 17:29:54 by bmangin          ###   ########lyon.fr   */
+/*   Created: 2021/07/21 04:40:14 by bmangin           #+#    #+#             */
+/*   Updated: 2021/07/24 12:04:18 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex(char **av)
+static void	init_fd(t_fd *fd, char *file1, char *file2)
 {
-	int	fd1;	
-	int	fd2;	
-	
-	fd1 = open (av[1], O_DIRECTORY);
-	if (fd1 > 0)
+	fd = wrmalloc(sizeof(t_fd));
+	fd->fd1 = open (file1, O_DIRECTORY);
+	if (fd->fd1 > 0)
 	{
-		close(fd1);
-		return (error("T'es un correcteur relou ! \n"));
+		close(fd->fd1);
+		ft_err("File opening:\n", 0);
 	}
-	close(fd1);
-	fd1 = open(av[1], O_RDONLY);
-	fd2 = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (fd1 == -1 || fd2 == -1)
+	close(fd->fd1);
+	fd->fd1 = open(file1, O_RDONLY);
+	fd->fd2 = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (fd->fd1 == -1 || fd->fd2 == -1)
 	{
-		close(fd1);
-		close(fd2);
-		return (error("file 1 or file2 invalid\n"));
+		close(fd->fd1);
+		close(fd->fd2);
+		ft_err("File opening:\n", 1);
 	}
-	else
-		return (error("command : ./pipex file1 \"cmd1\" \"cmd2\" file2\n"));
-	return (0);	
 }
 
-int	main(int ac, char **av)
+int	pipex(int ac, char **av, char **env)
 {
-	if (ac == 5)
-	{
-		pipex(av);	
-	}
+	t_pipex	p;
+
+	p = (t_pipex){};
+	init_fd(&p.fd, av[1], av[ac - 1]);
+	return (exec(ac, av, env, &p));
+}
+
+int	main(int ac, char **av, char **env)
+{
+	ft_putstr(env[0]);
+	if (ac > 1)
+		return (pipex(ac, av, env));
 	else
-	{
-		printf("Pipex syntax: file1 cmd1 cmd2 file2\n");
-		printf("Like command '|':\n");	
-		printf("< file1 cmd1| cmd2 > file2\n");	
-	}
+		ft_err("Command:\n", 2);
 	return (0);
 }

@@ -1,14 +1,26 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/22 12:45:19 by bmangin           #+#    #+#              #
+#    Updated: 2021/07/24 00:37:45 by bmangin          ###   ########lyon.fr    #
+#                                                                              #
+# **************************************************************************** #
+
+# ******************************************************* #
+# *******************   VARIABLES   ********************* #
+# ******************************************************* #
+
 NAME	= libft.a
 
-PATH_I	= includes
-
-PATH_S	= srcs
-
-PATH_O	= bin
+PATH_I	:= includes
+PATH_S	:= srcs
+PATH_O	:= .bin
 
 VPATH	= ${PATH_I} ${PATH_S} ${PATH_O}
-
-HDRS	= libft.h
 
 FILES	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 		  ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memccpy.c \
@@ -26,41 +38,42 @@ FILES	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 		  ft_strslen.c ft_putbytes.c ft_get_color.c ft_lstadd_back.c \
 		  ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
 		  ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_strtolower.c ft_wrdestroy.c \
-		  get_next_line.c
-
-OBJS	= ${FILES:.c=.o}
-
-INC		= ${addprefix ${PATH_I}/, ${HDRS}}
+		  ft_check_ext.c get_next_line.c
 
 SRCS	= ${addprefix ${PATH_S}/, ${FILES}}
-
+OBJS	= ${FILES:.c=.o}
 BIN		= ${addprefix ${PATH_O}/, ${OBJS}}
 
+HDRS	:= libft.h
+INC		= ${addprefix ${PATH_I}/, ${HDRS}}
+
+# ******************************************************* #
+# *******************   COMMANDES   ********************* #
+# ******************************************************* #
+
 CC		= clang
-
 FLAGS	= -Wall -Wextra -Wall 
-
 AR		= ar rcs
-
 MKDIR	= mkdir -p
-
 MV		= mv
-
 RM		= rm -rf
-
 I_LIB	= ranlib
-
+NORM	= norminette
 
 .SILENT:
 
-_BLACK=\x1b[30m
-_R=\x1b[31m
-_G=\x1b[32m
-_Y=\x1b[33m
-_B=\x1b[34m
-_P=\x1b[35m
-_C=\x1b[36m
-_E=\x1b[0m
+_BLACK	= \x1b[30m
+_R		= \x1b[31m
+_G		= \x1b[32m
+_Y		= \x1b[33m
+_B		= \x1b[34m
+_P		= \x1b[35m
+_C		= \x1b[36m
+_E		= \x1b[0m
+
+# ******************************************************* #
+# ********************   MAKE SHIT   ******************** #
+# ******************************************************* #
 
 all :		crea_b ${NAME} 
 
@@ -117,8 +130,11 @@ monkey:
 		echo "$(_G) -$(_E)$(_Y)ooO$(_E)$(_G)--$(_E)$(_Y)(_)$(_E)$(_G)--$(_E)$(_Y)Ooo$(_E)$(_G)-$(_E)"
 		sleep 0.5
 
+norm:
+		${NORM} ${SRCS} ${INC}
+
 toto:		monkey re libft
 
 re:			fclean all
 
-.PHONY:		monkey bonus clean fclean all toto re
+.PHONY:		monkey bonus clean fclean all toto re norm
