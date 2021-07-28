@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_ext.c                                     :+:      :+:    :+:   */
+/*   check_extention.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:40:20 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/18 19:16:47 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/25 17:42:07 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_check_ext(char *s, char *ext)
+int	check_extention(char *s, char *ext)
 {
 	char	*cmp;
 

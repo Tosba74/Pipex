@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/24 12:10:57 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/25 20:36:31 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*msg_err(int i)
 	tab[3] = "Pipe error";
 	tab[4] = "Fork error";
 	tab[5] = "ZOMBIE Child\n";
-	tab[6] = "";
+	tab[6] = "Dude! Use real command";
 	tab[7] = "";
 	tab[8] = "";
 	tab[9] = "\n";
@@ -45,20 +45,17 @@ void	init_bool(int index, int ac, t_pipex *p)
 	p->in = true;
 	p->out = true;
 	if (index == 2)
-	{
 		p->in = false;
-	}	
 	else if (index == ac - 1)
-	{
 		p->out = false;
-	}
 }
 
-void	init_cmd(char *cmd, char *av)
+void	init_cmd(char *cmd, char *av, char **env)
 {
 	if (cmd)
 		wrfree(cmd);
-	cmd = strdup("/bin/");
-	cmd = ft_strjoin(cmd, av);
+	cmd = select_env_path(av, env);
+	if (!cmd)
+		ft_err("COMMAND:", 6);
 	printf("COMMAND => %s\n", cmd);
 }

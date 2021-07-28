@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:40:14 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/24 12:04:18 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/24 12:04:18bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	pipex(int ac, char **av, char **env)
 
 int	main(int ac, char **av, char **env)
 {
-	ft_putstr(env[0]);
 	if (ac > 1)
 		return (pipex(ac, av, env));
 	else

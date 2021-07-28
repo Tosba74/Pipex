@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:37:28 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/24 01:29:34 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/25 02:07:15 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_pipex
 // tool.c
 void	ft_err(char *s, int err);
 void	init_bool(int index, int ac, t_pipex *p);
-void	init_cmd(char *cmd, char *av);
+void	init_cmd(char *cmd, char *av, char **env);
 
 // pipex.c
 int		exec(int ac, char **av, char **env, t_pipex *p);
