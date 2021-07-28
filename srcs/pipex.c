@@ -1,4 +1,4 @@
-r /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
@@ -6,7 +6,7 @@ r /* ************************************************************************** 
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:40:00 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/25 22:03:56 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/28 15:51:10 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ static void	child_process(t_pipex *p, char *av, const int prev)
 		dup2(prev, STDIN_FILENO);
 		close (prev);
 	}
+	else
+		dup2(p->fd.fd_in, STDIN_FILENO);	
 	if (p->out)
 	{
-		dup2(p->pipefd[1], STDIN_FILENO);
-		close (p->pipefd[1]);
+		dup2(p->pipefd[1], STDOUT_FILENO);
+		close (p->pipefd[0]);
 	}
-	execve(&prev, ft_split(av, ' '), p->env);
+	else
+		dup2(p->fd.fd_out, STDOUT_FILENO);	
+	execve(p->cmd, ft_split(av, ' '), p->env);
 	// printf("Command => %s\n", p->cmd);
 	// execve(p->cmd, ft_split(av, ' '), p->env);
 	// execve(p->cmd, &av, p->env);
@@ -79,8 +83,8 @@ int	exec(int ac, char **av, char **env, t_pipex *p)
 	while (i++ < ac - 2)
 	{
 		init_bool(i, ac, p);
-		init_cmd(p->cmd, av[i], env);
 		p->env = env;
+		init_cmd(p->cmd, av[i], env);
 		exec_jobs(p, av[i]);
 	}
 	return (waiting_pid(p));

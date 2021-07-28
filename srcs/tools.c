@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/25 20:36:31 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/28 14:21:42 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_cmd(char *cmd, char *av, char **env)
 	if (cmd)
 		wrfree(cmd);
 	cmd = select_env_path(av, env);
+	printf("CMD ==> %s\n", cmd);
 	if (!cmd)
 		ft_err("COMMAND:", 6);
 	printf("COMMAND => %s\n", cmd);

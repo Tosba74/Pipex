@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:37:28 by bmangin           #+#    #+#             */
-/*   Updated: 2021/07/25 02:07:15 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/07/28 15:41:22 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 typedef struct s_fd
 {
-	int			fd1;
-	int			fd2;
+	int			fd_in;
+	int			fd_out;
 }	t_fd;
 
 typedef struct s_pipex
